@@ -1,12 +1,20 @@
-# Stage 1: Build frontend assets
+# Stage 1: Install Composer dependencies (including Filament for Vite CSS)
+FROM composer:2 AS composer-deps
+WORKDIR /app
+COPY . .
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts --ignore-platform-req=ext-*
+
+# Stage 2: Build frontend assets with Vite
 FROM node:20-alpine AS frontend
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+# Copy vendor from composer-deps so Vite can resolve Filament CSS imports
+COPY --from=composer-deps /app/vendor ./vendor
 RUN npm run build
 
-# Stage 2: Production PHP + Apache environment
+# Stage 3: Production PHP + Apache environment
 FROM php:8.2-apache
 
 # Install OS libraries and PHP extensions (including PostgreSQL drivers)
@@ -23,7 +31,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo pdo_pgsql pgsql zip bcmath gd opcache \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install Composer
+# Install Composer binary
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Configure Apache Document Root to /public
@@ -38,11 +46,11 @@ WORKDIR /var/www/html
 # Copy application source
 COPY . .
 
-# Copy built frontend assets from Stage 1
-COPY --from=frontend /app/public/build ./public/build
+# Copy installed composer vendor directory from Stage 1
+COPY --from=composer-deps /app/vendor ./vendor
 
-# Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+# Copy built frontend assets from Stage 2
+COPY --from=frontend /app/public/build ./public/build
 
 # Set correct storage and cache permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
