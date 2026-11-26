@@ -1,0 +1,38 @@
+# Environment & Secrets
+.env
+.env.backup
+.env.production
+*.env
+laravel/.env
+laravel/.env.*
+!laravel/.env.example
+
+# Dependencies
+/node_modules
+laravel/node_modules/
+/vendor
+laravel/vendor/
+
+# Build assets
+laravel/public/build/
+laravel/public/hot
+laravel/public/storage
+
+# Storage & Logs
+laravel/storage/*.key
+laravel/storage/pail
+laravel/storage/logs/*.log
+*.log
+
+# Caches & IDEs
+.phpunit.result.cache
+laravel/.phpunit.cache/
+.vscode/
+.idea/
+.fleet/
+.DS_Store
+Thumbs.db
+
+# Large zips & Unzipped WP Core
+wordpress/*.zip
+wordpress/wordpress/
