@@ -1,10 +1,11 @@
 @import "./fonts.css";
-@import "./theme.css";
-@reference "tailwindcss";
+@import "tailwindcss";
+@config "../../tailwind.config.js";
+@source "../views/**/*.blade.php";
+@source "../js/**/*.js";
+@source "../../app/**/*.php";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "./theme.css";
 
 @layer base {
   body {
