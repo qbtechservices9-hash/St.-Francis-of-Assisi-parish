@@ -1,8 +1,8 @@
-# Stage 1: Install Composer dependencies (including Filament for Vite CSS)
+# Stage 1: Install Composer dependencies (ignoring platform check during asset staging)
 FROM composer:2 AS composer-deps
 WORKDIR /app
 COPY . .
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts --ignore-platform-req=ext-*
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts --ignore-platform-reqs
 
 # Stage 2: Build frontend assets with Vite
 FROM node:20-alpine AS frontend
