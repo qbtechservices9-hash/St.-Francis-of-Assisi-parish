@@ -6,9 +6,12 @@
     <title>@yield('title', 'St. Francis Of Assisi - Awoshie Anyaa')</title>
     <link rel="icon" href="{{ $siteLogoUrl ?? asset('images/logo.jpg') }}" type="image/jpeg">
     <link rel="apple-touch-icon" href="{{ $siteLogoUrl ?? asset('images/logo.jpg') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
   </head>
-  <body class="min-h-screen site-3d flex flex-col bg-[#F8F6F3] text-[#333333]" data-animate="@yield('page_animate', 'true')">
+  <body class="min-h-screen site-3d flex flex-col bg-[#F8F6F3] text-[#333333] antialiased" data-animate="@yield('page_animate', 'true')">
     <div class="site-preloader" data-preloader aria-hidden="true">
       <div class="preloader-card">
         <img src="{{ $siteLogoUrl ?? asset('images/logo.jpg') }}" alt="Church logo" class="preloader-logo">
@@ -26,4 +29,3 @@
     @include('partials.footer')
   </body>
 </html>
-

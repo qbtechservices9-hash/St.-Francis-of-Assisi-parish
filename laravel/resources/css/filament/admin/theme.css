@@ -2,19 +2,19 @@
 
 /* Filament admin theme overrides - clean light SaaS */
 :root {
-  --admin-bg: #f5f7fb;
+  --admin-bg: #FAF8F5;
   --admin-panel: #ffffff;
-  --admin-border: #e6eaf2;
-  --admin-muted: #6b7280;
-  --admin-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  --admin-border: #E8E0D5;
+  --admin-muted: #786C65;
+  --admin-shadow: 0 14px 34px rgba(107, 44, 44, 0.06);
 
-  --admin-sidebar: #0b1120;
-  --admin-sidebar-border: #111827;
-  --admin-sidebar-text: #e2e8f0;
-  --admin-sidebar-muted: #94a3b8;
-  --admin-sidebar-hover: rgba(245, 158, 11, 0.18);
-  --admin-sidebar-active: rgba(245, 158, 11, 0.3);
-  --admin-sidebar-accent: #f59e0b;
+  --admin-sidebar: #1F1512;
+  --admin-sidebar-border: #2B1D19;
+  --admin-sidebar-text: #EDE4DB;
+  --admin-sidebar-muted: #A89B91;
+  --admin-sidebar-hover: rgba(212, 175, 55, 0.15);
+  --admin-sidebar-active: rgba(107, 44, 44, 0.7);
+  --admin-sidebar-accent: #D4AF37;
 }
 
 .fi-body {
@@ -81,9 +81,9 @@
 
 .fi-sidebar .fi-sidebar-item-active a {
   background: var(--admin-sidebar-active);
-  color: #111827;
+  color: #ffffff;
   font-weight: 600;
-  box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.35);
+  box-shadow: inset 0 0 0 1px rgba(212, 175, 55, 0.45);
 }
 
 .fi-sidebar .fi-sidebar-item-active a .fi-sidebar-item-icon,

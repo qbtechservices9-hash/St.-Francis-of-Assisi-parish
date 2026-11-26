@@ -42,8 +42,9 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogoHeight('2.25rem')
             ->favicon($this->resolveLogoUrl())
             ->colors([
-                'primary' => Color::Amber,
-                'gray' => Color::Slate,
+                'primary' => Color::hex('#6B2C2C'),
+                'amber' => Color::hex('#D4AF37'),
+                'gray' => Color::Zinc,
             ])
             ->font('Source Sans 3')
             ->viteTheme('resources/css/filament/admin/theme.css')

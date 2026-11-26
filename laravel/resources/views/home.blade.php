@@ -115,14 +115,17 @@
 <section class="relative overflow-hidden hero-3d hero-full" id="hero" data-hero-slider @if($renderSlideCount > 1) data-autoplay="true" @endif>
   <div class="absolute inset-0">
     @foreach ($renderSlides as $index => $slide)
-      <div class="hero-slide-bg {{ $index === 0 ? 'is-active' : '' }}" data-hero-slide-bg aria-hidden="{{ $index === 0 ? 'false' : 'true' }}">
-        <img
-          src="{{ $slide['background_image'] ?? $heroImage }}"
-          alt="{{ $slide['title'] ?? $churchName }}"
-          class="w-full h-full object-cover hero-media"
-          @if ($index === 0) fetchpriority="high" loading="eager" @else loading="lazy" @endif
-        >
-      </div>
+      @php $slideBg = $slide['background_image'] ?? $heroImage; @endphp
+      @if (filled($slideBg))
+        <div class="hero-slide-bg {{ $index === 0 ? 'is-active' : '' }}" data-hero-slide-bg aria-hidden="{{ $index === 0 ? 'false' : 'true' }}">
+          <img
+            src="{{ $slideBg }}"
+            alt="{{ $slide['title'] ?? $churchName }}"
+            class="w-full h-full object-cover hero-media"
+            @if ($index === 0) fetchpriority="high" loading="eager" @else loading="lazy" @endif
+          >
+        </div>
+      @endif
     @endforeach
     <div class="absolute inset-0 bg-gradient-to-r from-[#6B2C2C]/95 via-[#8C6A5D]/82 to-[#6B2C2C]/50"></div>
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.25),_transparent_58%)]"></div>
@@ -359,7 +362,7 @@
       <div class="relative">
         <div class="absolute -top-5 -left-5 h-20 w-20 rounded-full bg-amber-100"></div>
         <div class="relative h-[420px] rounded-3xl overflow-hidden shadow-[0_22px_50px_rgba(46,26,15,0.18)] media-frame">
-          <img src="{{ $welcomeImage }}" alt="People praying" class="w-full h-full object-cover" loading="lazy">
+          <img src="{{ filled($welcomeImage) ? $welcomeImage : asset('images/logo.jpg') }}" alt="Parish life" class="w-full h-full object-cover" loading="lazy">
         </div>
       </div>
     </div>
