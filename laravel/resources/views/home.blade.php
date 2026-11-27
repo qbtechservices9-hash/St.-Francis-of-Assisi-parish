@@ -1,6 +1,6 @@
 ﻿@extends('layouts.site')
 
-@section('content')
+
 @php
     // Pull in data prepared by HomeController
     $hero = $homeContent['hero'] ?? [];
@@ -116,7 +116,7 @@
     </div>
 </section>
 
-{{-- Footer – simple contact info – you may already have a footer in layout – this ensures key info is visible on landing page --}}
+
 <footer class="bg-gray-800 text-gray-200 py-8">
     <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8">
         <div>
@@ -144,7 +144,7 @@
 @endsection
 
 
-@section('content')
+
 @php
   $hero = $homeContent['hero'] ?? [];
   $welcome = $homeContent['welcome'] ?? [];
