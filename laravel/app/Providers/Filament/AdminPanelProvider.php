@@ -38,9 +38,9 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->path('admin')
             ->brandName('St. Francis Of Assisi')
-            ->brandLogo($this->resolveLogoUrl())
+            ->brandLogo(fn () => $this->resolveLogoUrl())
             ->brandLogoHeight('2.25rem')
-            ->favicon($this->resolveLogoUrl())
+            ->favicon(fn () => $this->resolveLogoUrl())
             ->colors([
                 'primary' => Color::hex('#6B2C2C'),
                 'amber' => Color::hex('#D4AF37'),

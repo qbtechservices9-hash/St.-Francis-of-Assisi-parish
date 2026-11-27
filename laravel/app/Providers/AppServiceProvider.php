@@ -38,33 +38,35 @@ class AppServiceProvider extends ServiceProvider
         Page::observe(ModelAuditObserver::class);
         SiteSetting::observe(ModelAuditObserver::class);
 
-        try {
-            $settings = Cache::remember('site_settings', now()->addHours(6), function () {
-                return SiteSetting::query()->pluck('value', 'key')->toArray();
-            });
+        View::composer('*', function ($view) {
+            try {
+                $settings = Cache::remember('site_settings', now()->addHours(6), function () {
+                    return SiteSetting::query()->pluck('value', 'key')->toArray();
+                });
 
-            $navMinistries = Cache::remember('nav_ministries', now()->addHours(6), function () {
-                return Ministry::active()
-                    ->orderBy('name')
-                    ->get(['id', 'name', 'slug']);
-            });
+                $navMinistries = Cache::remember('nav_ministries', now()->addHours(6), function () {
+                    return Ministry::active()
+                        ->orderBy('name')
+                        ->get(['id', 'name', 'slug']);
+                });
 
-            $logoValue = $settings['logo'] ?? null;
-            $siteLogoUrl = null;
+                $logoValue = $settings['logo'] ?? null;
+                $siteLogoUrl = null;
 
-            if (is_string($logoValue) && $logoValue !== '') {
-                $siteLogoUrl = MediaStorage::url($logoValue);
+                if (is_string($logoValue) && $logoValue !== '') {
+                    $siteLogoUrl = MediaStorage::url($logoValue);
+                }
+
+                if (! $siteLogoUrl) {
+                    $siteLogoUrl = asset('images/logo.jpg');
+                }
+
+                $view->with('siteSettings', $settings);
+                $view->with('navMinistries', $navMinistries);
+                $view->with('siteLogoUrl', $siteLogoUrl);
+            } catch (\Throwable $e) {
+                // Database or URL generator not ready. Ignore.
             }
-
-            if (! $siteLogoUrl) {
-                $siteLogoUrl = asset('images/logo.jpg');
-            }
-
-            View::share('siteSettings', $settings);
-            View::share('navMinistries', $navMinistries);
-            View::share('siteLogoUrl', $siteLogoUrl);
-        } catch (\Throwable $e) {
-            // Database not ready (e.g., before migrations). Ignore.
-        }
+        });
     }
 }

@@ -19,4 +19,4 @@ Write-Host "Database:        Supabase PostgreSQL" -ForegroundColor Magenta
 Write-Host "Press Ctrl+C to stop the server." -ForegroundColor Yellow
 Write-Host ""
 
-& $php -d extension=pdo_pgsql -d extension=pgsql artisan serve --port=8000
+& $php -d extension=pdo_pgsql -d extension=pgsql -d extension=intl artisan serve --port=8000
